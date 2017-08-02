@@ -1,0 +1,19 @@
+observeEvent(input$ProjectId, {
+    if(input$ProjectId != " "){
+      print(UserInput)
+      pdf <- sqlQuery(conn, paste("SELECT fa.[PROJECT_NUMBER]
+,accd.[ACCOUNT_CODE]
+                                  ,accd.[corr_PARENT_ACCOUNT_CODE]
+                                  ,accd.[DESCRIPTION]
+                                  ,accd.[ACCOUNT_CODE_GROUP_ID]
+                                  ,accd.[ACCOUNT_CODE_GROUP_DESCRIPTION]
+                                  ,fa.[ACTUAL_COST]
+                                  ,fa.[POSTING_DATE]
+                                  FROM [dbo].[AccountCode_test01] accd
+                                  RIGHT JOIN [dbo].[FACT_ACTUALS] fa ON fa.[ACCOUNT_CODE] = accd.[ACCOUNT_CODE]
+                                  where fa.[PROJECT_NUMBER] ='UserInput' and accd.[corr_PARENT_ACCOUNT_CODE] NOT LIKE '%.%' and accd.[corr_PARENT_ACCOUNT_CODE] NOT LIKE '%00%' and accd.[corr_PARENT_ACCOUNT_CODE] <> '' "))
+      
+      print(pdf)
+
+    }
+  })
